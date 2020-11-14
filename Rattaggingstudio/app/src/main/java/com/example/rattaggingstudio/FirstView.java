@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -25,6 +26,9 @@ public class FirstView extends Fragment {
         view.findViewById(R.id.addTitle).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                final EditText title =  (EditText) view.findViewById(R.id.addTitle);
+                String titleString = (String) title.getText().toString();
+                System.out.println("title: " + titleString);
             }
         });
         view.findViewById(R.id.next).setOnClickListener(new View.OnClickListener() {

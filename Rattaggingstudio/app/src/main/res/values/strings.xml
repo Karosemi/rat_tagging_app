@@ -4,4 +4,6 @@
     <string name="next">next</string>
     <string name="save">save</string>
     <string name="rat_tagging_studio">Rat tagging studio</string>
+    <string name="file_no">File no.</string>
+    <string name="description">Description</string>
 </resources>
