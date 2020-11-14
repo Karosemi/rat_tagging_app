@@ -26,8 +26,8 @@ public class FirstView extends Fragment {
         view.findViewById(R.id.addTitle).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final EditText title =  (EditText) view.findViewById(R.id.addTitle);
-                String titleString = (String) title.getText().toString();
+                EditText title =  (EditText) view.findViewById(R.id.addTitle);
+                final String titleString = (String) title.getText().toString();
                 System.out.println("title: " + titleString);
                 view.clearFocus();
             }
@@ -35,8 +35,8 @@ public class FirstView extends Fragment {
         view.findViewById(R.id.editDate).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final EditText title =  (EditText) view.findViewById(R.id.editDate);
-                String dateString = (String) title.getText().toString();
+                EditText title =  (EditText) view.findViewById(R.id.editDate);
+                final String dateString = (String) title.getText().toString();
                 System.out.println("date: " + dateString);
                 view.clearFocus();
             }
