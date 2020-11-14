@@ -29,6 +29,16 @@ public class FirstView extends Fragment {
                 final EditText title =  (EditText) view.findViewById(R.id.addTitle);
                 String titleString = (String) title.getText().toString();
                 System.out.println("title: " + titleString);
+                view.clearFocus();
+            }
+        });
+        view.findViewById(R.id.editDate).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final EditText title =  (EditText) view.findViewById(R.id.editDate);
+                String dateString = (String) title.getText().toString();
+                System.out.println("date: " + dateString);
+                view.clearFocus();
             }
         });
         view.findViewById(R.id.next).setOnClickListener(new View.OnClickListener() {

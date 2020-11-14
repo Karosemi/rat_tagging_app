@@ -6,4 +6,6 @@
     <string name="rat_tagging_studio">Rat tagging studio</string>
     <string name="file_no">File no.</string>
     <string name="description">Description</string>
+    <string name="add_title_of_session">Add Title of Session</string>
+    <string name="add_title">Add title</string>
 </resources>
