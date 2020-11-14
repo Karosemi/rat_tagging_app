@@ -24,11 +24,13 @@ public class SecondView extends Fragment {
         view.findViewById(R.id.editTextNumber).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                view.clearFocus();
             }
         });
         view.findViewById(R.id.editTextDescription).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                view.clearFocus();
 
             }
         });
