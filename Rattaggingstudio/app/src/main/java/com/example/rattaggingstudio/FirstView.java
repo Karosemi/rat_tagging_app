@@ -49,12 +49,7 @@ public class FirstView extends Fragment {
                 view.clearFocus();
                 System.out.println("title: " + titleString);
                 System.out.println("date: " + dateString);
-//                getParentFragmentManager().setFragmentResult("requestKey", result);
-//                onSaveInstanceState("info", savedInstanceState, titleString, dateString);
-                String title_key = "title";
-                String date_key = "date";
-                savedInstanceState.putCharSequence(title_key, titleString);
-                savedInstanceState.putCharSequence(date_key, dateString);
+
                 NavHostFragment.findNavController(FirstView.this)
                         .navigate(R.id.action_firstView_to_secondView);
             }
@@ -72,17 +67,5 @@ public class FirstView extends Fragment {
 //        return state;
 //    }
 
-    public void onSaveInstanceState(String key, Bundle outState, String title, String date) {
-        super.onSaveInstanceState(outState);
-        Bundle state = new Bundle();
-        String title_key="title";
-        state.putCharSequence(title_key, title);
-        String date_key = "date";
-        state.putCharSequence(date_key, date);
-        /* If onDestroyView() is called first, we can use the previously savedState but we can't call saveState() anymore */
-        /* If onSaveInstanceState() is called first, we don't have savedState, so we need to call saveState() */
-        /* => (?:) operator inevitable! */
-        outState.putBundle(key, state);
-    }
 
 }
