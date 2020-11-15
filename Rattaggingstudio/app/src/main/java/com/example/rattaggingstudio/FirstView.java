@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
@@ -22,28 +23,17 @@ public class FirstView extends Fragment {
     }
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        view.findViewById(R.id.addTitle).setOnClickListener(new View.OnClickListener() {
+        EditText  addTitle = (EditText) view.findViewById(R.id.addTitle);
+        EditText  editDate = (EditText) view.findViewById(R.id.editDate);
+        Button next = (Button) view.findViewById(R.id.next);
+        next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EditText title =  (EditText) view.findViewById(R.id.addTitle);
-                final String titleString = (String) title.getText().toString();
+                String titleString = (String) addTitle.getText().toString();
+                String dateString = (String) editDate.getText().toString();
                 System.out.println("title: " + titleString);
-                view.clearFocus();
-            }
-        });
-        view.findViewById(R.id.editDate).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                EditText title =  (EditText) view.findViewById(R.id.editDate);
-                final String dateString = (String) title.getText().toString();
                 System.out.println("date: " + dateString);
                 view.clearFocus();
-            }
-        });
-        view.findViewById(R.id.next).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
                 NavHostFragment.findNavController(FirstView.this)
                         .navigate(R.id.action_firstView_to_secondView);
             }

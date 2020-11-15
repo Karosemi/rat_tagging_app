@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -20,27 +22,18 @@ public class SecondView extends Fragment {
     }
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        EditText editTextNumber = (EditText) view.findViewById(R.id.editTextNumber);
+        EditText  editTextDescription = (EditText) view.findViewById(R.id.editTextDescription);
+        Button save = (Button) view.findViewById(R.id.save);
 
-        view.findViewById(R.id.editTextNumber).setOnClickListener(new View.OnClickListener() {
+        save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 view.clearFocus();
-            }
-        });
-        view.findViewById(R.id.editTextDescription).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                view.clearFocus();
-
-            }
-        });
-
-        view.findViewById(R.id.save).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
                 NavHostFragment.findNavController(SecondView.this)
                         .navigate(R.id.action_secondView_to_firstView);
             }
         });
+
     }
 }
