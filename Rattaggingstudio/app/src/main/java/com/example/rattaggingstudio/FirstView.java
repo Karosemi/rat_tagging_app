@@ -1,5 +1,6 @@
 package com.example.rattaggingstudio;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,7 +9,6 @@ import android.widget.EditText;
 import android.content.Context;
 
 import com.opencsv.CSVWriter;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -23,6 +23,9 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 public class FirstView extends Fragment {
+    OpenCSVWriter csv;
+    StringBuffer filePath;
+    File file;
 
     @Override
     public View onCreateView(
@@ -39,6 +42,10 @@ public class FirstView extends Fragment {
         EditText  addTitle = (EditText) view.findViewById(R.id.addTitle);
         EditText  editDate = (EditText) view.findViewById(R.id.editDate);
         Button next = (Button) view.findViewById(R.id.next);
+//        filePath = new StringBuffer();
+//        filePath.append('.');
+//        file = new File(filePath.toString());
+//        csv = new OpenCSVWriter(file);
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -47,6 +54,9 @@ public class FirstView extends Fragment {
 //                String[] info = {titleString, dateString};
                 String info = titleString + ',' + dateString;
                 view.clearFocus();
+                String title_key = "title";
+                String date_key = "date";
+                
                 System.out.println("title: " + titleString);
                 System.out.println("date: " + dateString);
 

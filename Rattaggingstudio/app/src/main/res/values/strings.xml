@@ -8,4 +8,5 @@
     <string name="description">Description</string>
     <string name="add_title_of_session">Add Title of Session</string>
     <string name="add_title">Add title</string>
+    <string name="back">back</string>
 </resources>

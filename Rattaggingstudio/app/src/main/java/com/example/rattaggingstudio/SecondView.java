@@ -24,12 +24,15 @@ public class SecondView extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         EditText editTextNumber = (EditText) view.findViewById(R.id.editTextNumber);
         EditText  editTextDescription = (EditText) view.findViewById(R.id.editTextDescription);
-        Button save = (Button) view.findViewById(R.id.save);
+        Button save = (Button) view.findViewById(R.id.back);
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 view.clearFocus();
+                String titleKey = "title";
+                String dateKey = "date";
+
                 NavHostFragment.findNavController(SecondView.this)
                         .navigate(R.id.action_secondView_to_firstView);
             }
