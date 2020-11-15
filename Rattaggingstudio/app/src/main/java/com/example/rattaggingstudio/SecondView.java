@@ -7,6 +7,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
@@ -24,15 +27,33 @@ public class SecondView extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         EditText editTextNumber = (EditText) view.findViewById(R.id.editTextNumber);
         EditText  editTextDescription = (EditText) view.findViewById(R.id.editTextDescription);
-        Button save = (Button) view.findViewById(R.id.back);
-
+        Button back = (Button) view.findViewById(R.id.back);
+        Button save = (Button) view.findViewById(R.id.save);
+        Measurement thisMeasurement = (Measurement) new Measurement();
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String fileNumber = (String) editTextNumber.getText().toString();
+                String description = (String) editTextDescription.getText().toString();
+//                Measurement thisMeasurement = (Measurement) new Measurement(fileNumber, description);
+                thisMeasurement.addDescription(description);
+                thisMeasurement.addFileNumber(fileNumber);
+                ArrayList<String> listDescription = (ArrayList<String>) thisMeasurement.getDescription();
+                ArrayList<String> listFileNumber= (ArrayList<String>) thisMeasurement.getFileNumber();
+                for (String s : listFileNumber) {
+                    System.out.println("File Number:" + s);
+                }
+                for (String k : listDescription) {
+                    System.out.println("File Description:" + k);
+                }
                 view.clearFocus();
-                String titleKey = "title";
-                String dateKey = "date";
+            }
+        });
 
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                view.clearFocus();
                 NavHostFragment.findNavController(SecondView.this)
                         .navigate(R.id.action_secondView_to_firstView);
             }

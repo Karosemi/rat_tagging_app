@@ -56,10 +56,10 @@ public class FirstView extends Fragment {
                 view.clearFocus();
                 String title_key = "title";
                 String date_key = "date";
-                
+
                 System.out.println("title: " + titleString);
                 System.out.println("date: " + dateString);
-
+                Info thisInfo = (Info) new Info(titleString, dateString);
                 NavHostFragment.findNavController(FirstView.this)
                         .navigate(R.id.action_firstView_to_secondView);
             }

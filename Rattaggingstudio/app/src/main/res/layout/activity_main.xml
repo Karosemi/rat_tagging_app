@@ -8,13 +8,4 @@
 
     <include layout="@layout/content_main" />
 
-    <Button
-        android:id="@+id/save"
-        android:layout_width="107dp"
-        android:layout_height="67dp"
-        android:text="save"
-        android:textSize="24sp"
-        android:translationX="300dp"
-        android:translationY="650dp" />
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
