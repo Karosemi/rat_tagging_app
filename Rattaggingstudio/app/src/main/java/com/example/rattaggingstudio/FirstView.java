@@ -19,6 +19,7 @@ import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
@@ -56,7 +57,6 @@ public class FirstView extends Fragment {
                 view.clearFocus();
                 String title_key = "title";
                 String date_key = "date";
-
                 System.out.println("title: " + titleString);
                 System.out.println("date: " + dateString);
                 Info thisInfo = (Info) new Info(titleString, dateString);
