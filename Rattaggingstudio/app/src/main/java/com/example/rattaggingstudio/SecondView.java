@@ -34,6 +34,7 @@ public class SecondView extends Fragment {
             @Override
             public void onClick(View view) {
                 String fileNumber = (String) editTextNumber.getText().toString();
+                System.out.println(fileNumber);
                 String description = (String) editTextDescription.getText().toString();
 //                Measurement thisMeasurement = (Measurement) new Measurement(fileNumber, description);
                 thisMeasurement.addDescription(description);

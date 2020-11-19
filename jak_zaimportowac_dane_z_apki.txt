@@ -1,0 +1,2 @@
+tworzę bazę danych po to aby mieć dostęp do danych z każdego miejsca w aplikacji.
+Na końcu w main acitivity dodaje button save, który exportuje tabele do csv.

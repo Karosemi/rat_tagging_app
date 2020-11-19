@@ -1,10 +1,15 @@
 package com.example.rattaggingstudio;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
+import java.nio.file.FileAlreadyExistsException;
 
 public class SqlDataHelper extends SQLiteOpenHelper {
+    private static final String TAG = "DatabaseHelper";
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "tagging";
     private static final String SQL_CREATE_INFO_ENTRIES =
@@ -15,7 +20,7 @@ public class SqlDataHelper extends SQLiteOpenHelper {
                     FeedInfo.FeedEntryInfo.COLUMN_NAME_DATE + " TEXT)";
 
     private static final String SQL_DELETE_INFO_ENTRIES =
-            "DROP TABLE IF EXISTS " + FeedInfo.FeedEntryInfo.TABLE_NAME;
+             "DROP TABLE IF EXISTS " + FeedInfo.FeedEntryInfo.TABLE_NAME;
 
     private static final String SQL_CREATE_TAG_ENTRIES =
             "CREATE TABLE " + FeedTag.FeedEntryTag.TABLE_NAME + "(" +
@@ -44,9 +49,25 @@ public class SqlDataHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_DELETE_TAG_ENTRIES);
         onCreate(db);
     }
+
+
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         onUpgrade(db, oldVersion, newVersion);
     }
 
+
+    public boolean addDataToInfoTable(String title, String date) {
+        SQLiteDatabase dbInfo = this.getWritableDatabase();
+        ContentValues titleContentValues = new ContentValues();
+        ContentValues dateContentValues = new ContentValues();
+        titleContentValues.put(FeedInfo.FeedEntryInfo.COLUMN_NAME_TITLE, title);
+        dateContentValues.put(FeedInfo.FeedEntryInfo.COLUMN_NAME_DATE, date);
+        long titleResult = dbInfo.insert(FeedInfo.FeedEntryInfo.TABLE_NAME, null, titleContentValues);
+        long dateResult = dbInfo.insert(FeedInfo.FeedEntryInfo.TABLE_NAME, null, dateContentValues);
+        Log.d(TAG, "addDataToInfoTable: Adding data to table" + FeedInfo.FeedEntryInfo.TABLE_NAME);
+        return !(titleResult == -1 | dateResult == -1);
+
+    }
+//    public boolean
 
 }
