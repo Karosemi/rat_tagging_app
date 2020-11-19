@@ -62,12 +62,25 @@ public class SqlDataHelper extends SQLiteOpenHelper {
         ContentValues dateContentValues = new ContentValues();
         titleContentValues.put(FeedInfo.FeedEntryInfo.COLUMN_NAME_TITLE, title);
         dateContentValues.put(FeedInfo.FeedEntryInfo.COLUMN_NAME_DATE, date);
+        Log.d(TAG, "addDataToInfoTable: Adding data to table" + FeedInfo.FeedEntryInfo.TABLE_NAME);
         long titleResult = dbInfo.insert(FeedInfo.FeedEntryInfo.TABLE_NAME, null, titleContentValues);
         long dateResult = dbInfo.insert(FeedInfo.FeedEntryInfo.TABLE_NAME, null, dateContentValues);
-        Log.d(TAG, "addDataToInfoTable: Adding data to table" + FeedInfo.FeedEntryInfo.TABLE_NAME);
         return !(titleResult == -1 | dateResult == -1);
 
     }
-//    public boolean
+    // trzeba dodac id sesji do obu tabel - id pomiaru niepotrzbne bo chce to eksportowac do csv
+    public boolean addDataToTagTable(String fileNumber, String description){
+        SQLiteDatabase dbInfo = this.getWritableDatabase();
+        ContentValues numberContentValues = new ContentValues();
+        ContentValues descriptionContentValues = new ContentValues();
+        numberContentValues.put(FeedTag.FeedEntryTag.COLUMN_NAME_NUMBER, fileNumber);
+        descriptionContentValues.put(FeedTag.FeedEntryTag.COLUMN_NAME_DESCRIPTION, description);
+        Log.d(TAG, "addDataToInfoTable: Adding data to table" + FeedTag.FeedEntryTag.TABLE_NAME);
+        long numberResult = dbInfo.insert(FeedTag.FeedEntryTag.TABLE_NAME, null, numberContentValues);
+        long descriptionResult = dbInfo.insert(FeedTag.FeedEntryTag.TABLE_NAME, null, descriptionContentValues);
+        return !(numberResult == -1 | descriptionResult == -1);
+
+
+    }
 
 }
