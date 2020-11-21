@@ -25,7 +25,6 @@ public class SqlDataHelper extends SQLiteOpenHelper {
     private static final String SQL_CREATE_TAG_ENTRIES =
             "CREATE TABLE " + FeedTag.FeedEntryTag.TABLE_NAME + "(" +
                     FeedTag.FeedEntryTag._ID + " INTEGER PRIMARY KEY," +
-                    FeedTag.FeedEntryTag.COLUMN_NAME_INFO_ID + " TEXT," +
                     FeedTag.FeedEntryTag.COLUMN_NAME_ID + " TEXT," +
                     FeedTag.FeedEntryTag.COLUMN_NAME_NUMBER  + " TEXT," +
                     FeedTag.FeedEntryTag.COLUMN_NAME_DESCRIPTION + " TEXT)";
@@ -52,33 +51,40 @@ public class SqlDataHelper extends SQLiteOpenHelper {
 
 
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        // added by ide
         onUpgrade(db, oldVersion, newVersion);
     }
 
 
-    public boolean addDataToInfoTable(String title, String date) {
+    public boolean addDataToInfoTable(String title, String date, String id) {
         SQLiteDatabase dbInfo = this.getWritableDatabase();
         ContentValues titleContentValues = new ContentValues();
         ContentValues dateContentValues = new ContentValues();
+        ContentValues idContentValues = new ContentValues();
         titleContentValues.put(FeedInfo.FeedEntryInfo.COLUMN_NAME_TITLE, title);
         dateContentValues.put(FeedInfo.FeedEntryInfo.COLUMN_NAME_DATE, date);
+        idContentValues.put(FeedInfo.FeedEntryInfo.COLUMN_NAME_ID, id);
         Log.d(TAG, "addDataToInfoTable: Adding data to table" + FeedInfo.FeedEntryInfo.TABLE_NAME);
         long titleResult = dbInfo.insert(FeedInfo.FeedEntryInfo.TABLE_NAME, null, titleContentValues);
         long dateResult = dbInfo.insert(FeedInfo.FeedEntryInfo.TABLE_NAME, null, dateContentValues);
-        return !(titleResult == -1 | dateResult == -1);
+        long idResult = dbInfo.insert(FeedInfo.FeedEntryInfo.TABLE_NAME, null, idContentValues);
+        return !(titleResult == -1 | dateResult == -1 | idResult == -1);
 
     }
     // trzeba dodac id sesji do obu tabel - id pomiaru niepotrzbne bo chce to eksportowac do csv
-    public boolean addDataToTagTable(String fileNumber, String description){
+    public boolean addDataToTagTable(String fileNumber, String description, String id){
         SQLiteDatabase dbInfo = this.getWritableDatabase();
         ContentValues numberContentValues = new ContentValues();
         ContentValues descriptionContentValues = new ContentValues();
+        ContentValues idContentValues = new ContentValues();
         numberContentValues.put(FeedTag.FeedEntryTag.COLUMN_NAME_NUMBER, fileNumber);
         descriptionContentValues.put(FeedTag.FeedEntryTag.COLUMN_NAME_DESCRIPTION, description);
+        idContentValues.put(FeedTag.FeedEntryTag.COLUMN_NAME_ID, id);
         Log.d(TAG, "addDataToInfoTable: Adding data to table" + FeedTag.FeedEntryTag.TABLE_NAME);
         long numberResult = dbInfo.insert(FeedTag.FeedEntryTag.TABLE_NAME, null, numberContentValues);
         long descriptionResult = dbInfo.insert(FeedTag.FeedEntryTag.TABLE_NAME, null, descriptionContentValues);
-        return !(numberResult == -1 | descriptionResult == -1);
+        long idResult = dbInfo.insert(FeedInfo.FeedEntryInfo.TABLE_NAME, null, idContentValues);
+        return !(numberResult == -1 | descriptionResult == -1 | idResult == -1);
 
 
     }
