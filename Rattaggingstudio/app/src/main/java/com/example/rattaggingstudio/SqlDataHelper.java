@@ -2,6 +2,7 @@ package com.example.rattaggingstudio;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -76,10 +77,16 @@ public class SqlDataHelper extends SQLiteOpenHelper {
 //        values.put(FeedTag.FeedEntryTag.COLUMN_NAME_ID, id);
         Log.d(TAG, "addDataToInfoTable: Adding data to table" + FeedTag.FeedEntryTag.TABLE_NAME);
         long result = dbInfo.insert(FeedTag.FeedEntryTag.TABLE_NAME, null, values);
-        return !(result == -1);
+        return result != -1;
+
 
 
     }
-
+    public Cursor getData(String tableName){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT * FROM " + tableName +";";
+        System.out.println(query);
+        return db.rawQuery(query, null);
+    }
 
 }
