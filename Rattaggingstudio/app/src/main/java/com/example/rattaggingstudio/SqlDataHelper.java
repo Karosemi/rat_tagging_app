@@ -58,35 +58,28 @@ public class SqlDataHelper extends SQLiteOpenHelper {
 
     public boolean addDataToInfoTable(String title, String date, String id) {
         SQLiteDatabase dbInfo = this.getWritableDatabase();
-        ContentValues titleContentValues = new ContentValues();
-        ContentValues dateContentValues = new ContentValues();
-        ContentValues idContentValues = new ContentValues();
-        titleContentValues.put(FeedInfo.FeedEntryInfo.COLUMN_NAME_TITLE, title);
-        dateContentValues.put(FeedInfo.FeedEntryInfo.COLUMN_NAME_DATE, date);
-        idContentValues.put(FeedInfo.FeedEntryInfo.COLUMN_NAME_ID, id);
+        ContentValues values = new ContentValues();
+        values.put(FeedInfo.FeedEntryInfo.COLUMN_NAME_TITLE, title);
+        values.put(FeedInfo.FeedEntryInfo.COLUMN_NAME_DATE, date);
+        values.put(FeedInfo.FeedEntryInfo.COLUMN_NAME_ID, id);
         Log.d(TAG, "addDataToInfoTable: Adding data to table" + FeedInfo.FeedEntryInfo.TABLE_NAME);
-        long titleResult = dbInfo.insert(FeedInfo.FeedEntryInfo.TABLE_NAME, null, titleContentValues);
-        long dateResult = dbInfo.insert(FeedInfo.FeedEntryInfo.TABLE_NAME, null, dateContentValues);
-        long idResult = dbInfo.insert(FeedInfo.FeedEntryInfo.TABLE_NAME, null, idContentValues);
-        return !(titleResult == -1 | dateResult == -1 | idResult == -1);
+        long result = dbInfo.insert(FeedInfo.FeedEntryInfo.TABLE_NAME, null, values);
+        return !(result == -1);
 
     }
     // trzeba dodac id sesji do obu tabel - id pomiaru niepotrzbne bo chce to eksportowac do csv
     public boolean addDataToTagTable(String fileNumber, String description, String id){
         SQLiteDatabase dbInfo = this.getWritableDatabase();
-        ContentValues numberContentValues = new ContentValues();
-        ContentValues descriptionContentValues = new ContentValues();
-        ContentValues idContentValues = new ContentValues();
-        numberContentValues.put(FeedTag.FeedEntryTag.COLUMN_NAME_NUMBER, fileNumber);
-        descriptionContentValues.put(FeedTag.FeedEntryTag.COLUMN_NAME_DESCRIPTION, description);
-        idContentValues.put(FeedTag.FeedEntryTag.COLUMN_NAME_ID, id);
+        ContentValues values = new ContentValues();
+        values.put(FeedTag.FeedEntryTag.COLUMN_NAME_NUMBER, fileNumber);
+        values.put(FeedTag.FeedEntryTag.COLUMN_NAME_DESCRIPTION, description);
+        values.put(FeedTag.FeedEntryTag.COLUMN_NAME_ID, id);
         Log.d(TAG, "addDataToInfoTable: Adding data to table" + FeedTag.FeedEntryTag.TABLE_NAME);
-        long numberResult = dbInfo.insert(FeedTag.FeedEntryTag.TABLE_NAME, null, numberContentValues);
-        long descriptionResult = dbInfo.insert(FeedTag.FeedEntryTag.TABLE_NAME, null, descriptionContentValues);
-        long idResult = dbInfo.insert(FeedInfo.FeedEntryInfo.TABLE_NAME, null, idContentValues);
-        return !(numberResult == -1 | descriptionResult == -1 | idResult == -1);
+        long result = dbInfo.insert(FeedTag.FeedEntryTag.TABLE_NAME, null, values);
+        return !(result == -1);
 
 
     }
+
 
 }

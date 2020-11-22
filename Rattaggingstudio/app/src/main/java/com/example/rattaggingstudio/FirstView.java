@@ -1,4 +1,5 @@
 package com.example.rattaggingstudio;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.LayoutInflater;
@@ -23,6 +24,8 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
+import static com.example.rattaggingstudio.MainActivity.sqlDataHelper;
+
 public class FirstView extends Fragment {
     OpenCSVWriter csv;
     StringBuffer filePath;
@@ -37,6 +40,8 @@ public class FirstView extends Fragment {
         return inflater.inflate(R.layout.first_view, container, false);
     }
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+
+
         super.onViewCreated(view, savedInstanceState);
         CSVWriter writer = null;
         String fileName = "./info.csv";
@@ -54,6 +59,8 @@ public class FirstView extends Fragment {
                 String dateString = (String) editDate.getText().toString();
 //                String[] info = {titleString, dateString};
                 String info = titleString + ',' + dateString;
+                String id = (String) "dupa";
+                boolean insertInfo = sqlDataHelper.addDataToInfoTable(titleString, dateString, id);
                 view.clearFocus();
                 String title_key = "title";
                 String date_key = "date";
