@@ -1,24 +1,16 @@
 package com.example.rattaggingstudio;
 
-import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.service.quicksettings.Tile;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
     public static SqlDataHelper sqlDataHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,24 +27,46 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Cursor cursor = sqlDataHelper.getData(FeedTag.FeedEntryTag.TABLE_NAME);
-                System.out.println("Curor returnd");
-                int index = cursor.getColumnIndex(FeedTag.FeedEntryTag.COLUMN_NAME_DESCRIPTION);
-                System.out.println(index);
-                cursor.moveToFirst();
-                String test = cursor.getString(index); // TO NIE DZIALA
-                System.out.println(test);
-                cursor.moveToNext();
-                String test1 = cursor.getString(index); // TO NIE DZIALA
-                System.out.println(test1);
+                Cursor tagCursor = sqlDataHelper.getData(FeedTag.FeedEntryTag.TABLE_NAME);
+                Cursor infoCursor = sqlDataHelper.getData(FeedInfo.FeedEntryInfo.TABLE_NAME);
+                int indexTitle = infoCursor.getColumnIndex(FeedInfo.FeedEntryInfo.COLUMN_NAME_TITLE);
+                int indexDate = infoCursor.getColumnIndex(FeedInfo.FeedEntryInfo.COLUMN_NAME_DATE);
+                int indexDescription = tagCursor.getColumnIndex(FeedTag.FeedEntryTag.COLUMN_NAME_DESCRIPTION);
+                int indexFileNumber = tagCursor.getColumnIndex(FeedTag.FeedEntryTag.COLUMN_NAME_NUMBER);
+                infoCursor.moveToFirst();
+                StringBuilder tag = new StringBuilder();
+                String title = infoCursor.getString(indexTitle);
+                String date = infoCursor.getString(indexDate);
+                String info = "Title,Date\n" + title + "," + date;
+                tag.append("FileNumber,Description");
+                tagCursor.moveToFirst();
+                int count = tagCursor.getCount();
+                System.out.println(count);
+                if (count == 1) {
+                    String description = tagCursor.getString(indexDescription);
+                    String fileNumber = tagCursor.getString(indexFileNumber);
+                    tag.append("\n" + fileNumber + "," + description);
+                }
+                else if (count > 1){
+                for (int i = 0; i < count; i += 1) {
+                    String description = tagCursor.getString(indexDescription);
+                    String fileNumber = tagCursor.getString(indexFileNumber);
+                    tag.append("\n" + fileNumber + "," + description);
+                    tagCursor.moveToNext();
+                }}
+                System.out.println(info);
+                System.out.println(tag.toString());
+
+//                String test = cursor.getString(indexDescription); // TO NIE DZIALA
+//                System.out.println(test);
+//                cursor.moveToNext();
+//                String test1 = cursor.getString(indexDescription); // TO NIE DZIALA
+//                System.out.println(test1);
 
             }
         });
 //
     }
-
-
-
 
 
 }

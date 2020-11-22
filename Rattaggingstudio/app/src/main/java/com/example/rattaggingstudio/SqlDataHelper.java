@@ -85,7 +85,6 @@ public class SqlDataHelper extends SQLiteOpenHelper {
     public Cursor getData(String tableName){
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "SELECT * FROM " + tableName +";";
-        System.out.println(query);
         return db.rawQuery(query, null);
     }
 
