@@ -8,11 +8,12 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
+
+import static com.example.rattaggingstudio.MainActivity.sqlDataHelper;
 
 public class SecondView extends Fragment {
     @Override
@@ -27,10 +28,10 @@ public class SecondView extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         EditText editTextNumber = (EditText) view.findViewById(R.id.editTextNumber);
         EditText  editTextDescription = (EditText) view.findViewById(R.id.editTextDescription);
-        Button back = (Button) view.findViewById(R.id.back);
-        Button save = (Button) view.findViewById(R.id.save);
+        Button addTag = (Button) view.findViewById(R.id.tag);
+//        Button save = (Button) view.findViewById(R.id.save);
         Measurement thisMeasurement = (Measurement) new Measurement();
-        save.setOnClickListener(new View.OnClickListener() {
+        addTag.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String fileNumber = (String) editTextNumber.getText().toString();
@@ -39,6 +40,7 @@ public class SecondView extends Fragment {
 //                Measurement thisMeasurement = (Measurement) new Measurement(fileNumber, description);
                 thisMeasurement.addDescription(description);
                 thisMeasurement.addFileNumber(fileNumber);
+                boolean insertInfo = sqlDataHelper.addDataToTagTable(fileNumber, description);
                 ArrayList<String> listDescription = (ArrayList<String>) thisMeasurement.getDescription();
                 ArrayList<String> listFileNumber= (ArrayList<String>) thisMeasurement.getFileNumber();
                 for (String s : listFileNumber) {
@@ -51,14 +53,14 @@ public class SecondView extends Fragment {
             }
         });
 
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                view.clearFocus();
-                NavHostFragment.findNavController(SecondView.this)
-                        .navigate(R.id.action_secondView_to_firstView);
-            }
-        });
+//        back.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                view.clearFocus();
+//                NavHostFragment.findNavController(SecondView.this)
+//                        .navigate(R.id.action_secondView_to_firstView);
+//            }
+//        });
 
     }
 }

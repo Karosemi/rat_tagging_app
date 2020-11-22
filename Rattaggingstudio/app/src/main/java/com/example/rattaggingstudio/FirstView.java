@@ -59,8 +59,7 @@ public class FirstView extends Fragment {
                 String dateString = (String) editDate.getText().toString();
 //                String[] info = {titleString, dateString};
                 String info = titleString + ',' + dateString;
-                String id = (String) "dupa";
-                boolean insertInfo = sqlDataHelper.addDataToInfoTable(titleString, dateString, id);
+                boolean insertInfo = sqlDataHelper.addDataToInfoTable(titleString, dateString);
                 view.clearFocus();
                 String title_key = "title";
                 String date_key = "date";
