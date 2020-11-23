@@ -1,17 +1,20 @@
 package com.example.rattaggingstudio;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
-import android.service.quicksettings.Tile;
 import android.view.View;
 import android.widget.Button;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
 
 public class MainActivity extends AppCompatActivity {
     public static SqlDataHelper sqlDataHelper;
@@ -64,6 +67,16 @@ public class MainActivity extends AppCompatActivity {
                     FileOutputStream out = openFileOutput("data.csv", Context.MODE_PRIVATE);
                     out.write((tag.toString()).getBytes());
                     out.close();
+                    Context context = getApplicationContext();
+                    File filelocation = new File(getFilesDir(), "data.csv");
+                    Uri path = FileProvider.getUriForFile(context, "com.example.rattaggingstudio.fileprovider", filelocation);
+                    Intent fileIntent = new Intent(Intent.ACTION_SEND);
+                    fileIntent.setType("text/csv");
+                    fileIntent.putExtra(Intent.EXTRA_SUBJECT, "Data");
+                    fileIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    fileIntent.putExtra(Intent.EXTRA_STREAM, path);
+                    startActivity(Intent.createChooser(fileIntent, "Send data"));
+
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
