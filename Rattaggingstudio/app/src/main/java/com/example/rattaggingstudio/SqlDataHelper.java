@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import java.nio.file.FileAlreadyExistsException;
 
 public class SqlDataHelper extends SQLiteOpenHelper {
     private static final String TAG = "DatabaseHelper";
@@ -16,7 +15,6 @@ public class SqlDataHelper extends SQLiteOpenHelper {
     private static final String SQL_CREATE_INFO_ENTRIES =
             "CREATE TABLE " + FeedInfo.FeedEntryInfo.TABLE_NAME + " (" +
                     FeedInfo.FeedEntryInfo._ID + " INTEGER PRIMARY KEY," +
-//                    FeedInfo.FeedEntryInfo.COLUMN_NAME_ID + " TEXT," +
                     FeedInfo.FeedEntryInfo.COLUMN_NAME_TITLE + " TEXT," +
                     FeedInfo.FeedEntryInfo.COLUMN_NAME_DATE + " TEXT)";
 
@@ -26,7 +24,6 @@ public class SqlDataHelper extends SQLiteOpenHelper {
     private static final String SQL_CREATE_TAG_ENTRIES =
             "CREATE TABLE " + FeedTag.FeedEntryTag.TABLE_NAME + "(" +
                     FeedTag.FeedEntryTag._ID + " INTEGER PRIMARY KEY," +
-//                    FeedTag.FeedEntryTag.COLUMN_NAME_ID + " TEXT," +
                     FeedTag.FeedEntryTag.COLUMN_NAME_NUMBER  + " TEXT," +
                     FeedTag.FeedEntryTag.COLUMN_NAME_DESCRIPTION + " TEXT)";
 
@@ -62,19 +59,16 @@ public class SqlDataHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(FeedInfo.FeedEntryInfo.COLUMN_NAME_TITLE, title);
         values.put(FeedInfo.FeedEntryInfo.COLUMN_NAME_DATE, date);
-//        values.put(FeedInfo.FeedEntryInfo.COLUMN_NAME_ID, id);
         Log.d(TAG, "addDataToInfoTable: Adding data to table" + FeedInfo.FeedEntryInfo.TABLE_NAME);
         long result = dbInfo.insert(FeedInfo.FeedEntryInfo.TABLE_NAME, null, values);
         return !(result == -1);
 
     }
-    // trzeba dodac id sesji do obu tabel - id pomiaru niepotrzbne bo chce to eksportowac do csv
     public boolean addDataToTagTable(String fileNumber, String description){
         SQLiteDatabase dbInfo = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(FeedTag.FeedEntryTag.COLUMN_NAME_NUMBER, fileNumber);
         values.put(FeedTag.FeedEntryTag.COLUMN_NAME_DESCRIPTION, description);
-//        values.put(FeedTag.FeedEntryTag.COLUMN_NAME_ID, id);
         Log.d(TAG, "addDataToInfoTable: Adding data to table" + FeedTag.FeedEntryTag.TABLE_NAME);
         long result = dbInfo.insert(FeedTag.FeedEntryTag.TABLE_NAME, null, values);
         return result != -1;
