@@ -61,7 +61,7 @@ public class SqlDataHelper extends SQLiteOpenHelper {
         values.put(FeedInfo.FeedEntryInfo.COLUMN_NAME_DATE, date);
         Log.d(TAG, "addDataToInfoTable: Adding data to table" + FeedInfo.FeedEntryInfo.TABLE_NAME);
         long result = dbInfo.insert(FeedInfo.FeedEntryInfo.TABLE_NAME, null, values);
-        return !(result == -1);
+        return result != -1;
 
     }
     public boolean addDataToTagTable(String fileNumber, String description){
