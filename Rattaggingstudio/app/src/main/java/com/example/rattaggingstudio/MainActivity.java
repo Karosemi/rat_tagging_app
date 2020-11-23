@@ -27,10 +27,6 @@ public class MainActivity extends AppCompatActivity {
         int oldVersion = 0;
         int newVersion = 1;
         sqlDataHelper.onUpgrade(sqlDataHelper.getWritableDatabase(), oldVersion, newVersion);
-//        Button addTag = (Button) view.findViewById(R.id.tag);
-//        save.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//             public void onClick(View view) {
         Button fab = findViewById(R.id.save);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
                 int indexDate = infoCursor.getColumnIndex(FeedInfo.FeedEntryInfo.COLUMN_NAME_DATE);
                 int indexDescription = tagCursor.getColumnIndex(FeedTag.FeedEntryTag.COLUMN_NAME_DESCRIPTION);
                 int indexFileNumber = tagCursor.getColumnIndex(FeedTag.FeedEntryTag.COLUMN_NAME_NUMBER);
+                String fileName = "data.csv";
                 infoCursor.moveToFirst();
                 StringBuilder tag = new StringBuilder();
                 String title = infoCursor.getString(indexTitle);
@@ -64,11 +61,11 @@ public class MainActivity extends AppCompatActivity {
                 }}
                 System.out.println(tag.toString());
                 try {
-                    FileOutputStream out = openFileOutput("data.csv", Context.MODE_PRIVATE);
+                    FileOutputStream out = openFileOutput(fileName, Context.MODE_PRIVATE);
                     out.write((tag.toString()).getBytes());
                     out.close();
                     Context context = getApplicationContext();
-                    File filelocation = new File(getFilesDir(), "data.csv");
+                    File filelocation = new File(getFilesDir(), fileName);
                     Uri path = FileProvider.getUriForFile(context, "com.example.rattaggingstudio.fileprovider", filelocation);
                     Intent fileIntent = new Intent(Intent.ACTION_SEND);
                     fileIntent.setType("text/csv");
