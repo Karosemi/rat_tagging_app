@@ -1,10 +1,15 @@
 package com.example.rattaggingstudio;
 
+import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.service.quicksettings.Tile;
 import android.view.View;
 import android.widget.Button;
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -37,8 +42,8 @@ public class MainActivity extends AppCompatActivity {
                 StringBuilder tag = new StringBuilder();
                 String title = infoCursor.getString(indexTitle);
                 String date = infoCursor.getString(indexDate);
-                String info = "Title,Date\n" + title + "," + date;
-                tag.append("FileNumber,Description");
+                tag.append("Title,Date\n" + title + "," + date);
+                tag.append("\nFileNumber,Description");
                 tagCursor.moveToFirst();
                 int count = tagCursor.getCount();
                 System.out.println(count);
@@ -54,14 +59,16 @@ public class MainActivity extends AppCompatActivity {
                     tag.append("\n" + fileNumber + "," + description);
                     tagCursor.moveToNext();
                 }}
-                System.out.println(info);
                 System.out.println(tag.toString());
-
-//                String test = cursor.getString(indexDescription); // TO NIE DZIALA
-//                System.out.println(test);
-//                cursor.moveToNext();
-//                String test1 = cursor.getString(indexDescription); // TO NIE DZIALA
-//                System.out.println(test1);
+                try {
+                    FileOutputStream out = openFileOutput("data.csv", Context.MODE_PRIVATE);
+                    out.write((tag.toString()).getBytes());
+                    out.close();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
             }
         });
