@@ -25,12 +25,18 @@ public class SecondView extends Fragment {
         EditText editTextNumber = (EditText) view.findViewById(R.id.editTextNumber);
         EditText editTextDescription = (EditText) view.findViewById(R.id.editTextDescription);
         Button addTag = (Button) view.findViewById(R.id.tag);
+        editTextNumber.setText("1");
         addTag.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 String fileNumber = (String) editTextNumber.getText().toString();
                 String description = (String) editTextDescription.getText().toString();
                 sqlDataHelper.addDataToTagTable(fileNumber, description);
+                int i=Integer.parseInt(fileNumber);
+                i += 1;
+                String newFileNumber=String.valueOf(i);
+                editTextNumber.setText(newFileNumber);
                 view.clearFocus();
             }
         });
