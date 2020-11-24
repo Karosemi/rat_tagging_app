@@ -49,7 +49,6 @@ public class SqlDataHelper extends SQLiteOpenHelper {
 
 
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // added by ide
         onUpgrade(db, oldVersion, newVersion);
     }
 
