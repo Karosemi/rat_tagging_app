@@ -9,5 +9,13 @@
     <string name="add_title_of_session">Add Title of Session</string>
     <string name="add_title">Add title</string>
     <string name="back">back</string>
+    <string name="add_tag">add tag</string>
+    <string name="name">Name</string>
+    <string-array name="emotion_array">
+        <item>positive</item>
+        <item>neutral</item>
+        <item>negative</item>
+        <item>undefined</item>
+    </string-array>
 
 </resources>

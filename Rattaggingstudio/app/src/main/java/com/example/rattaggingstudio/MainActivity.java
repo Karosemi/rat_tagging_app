@@ -19,6 +19,13 @@ import androidx.core.content.FileProvider;
 public class MainActivity extends AppCompatActivity {
     public static SqlDataHelper sqlDataHelper;
 
+    private static String handleEmptyStrings(String text){
+        if (text.isEmpty()){
+            text = "NaN";
+        }
+        return text;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         int newVersion = 1;
         sqlDataHelper.onUpgrade(sqlDataHelper.getWritableDatabase(), oldVersion, newVersion);
         Button fab = findViewById(R.id.save);
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -46,20 +54,26 @@ public class MainActivity extends AppCompatActivity {
                 tag.append("\nFileNumber,Description");
                 tagCursor.moveToFirst();
                 int count = tagCursor.getCount();
-                System.out.println(count);
-                if (count == 1) {
-                    String description = tagCursor.getString(indexDescription);
-                    String fileNumber = tagCursor.getString(indexFileNumber);
-                    tag.append("\n" + fileNumber + "," + description);
-                }
-                else if (count > 1){
+//                if (count == 1) {
+//                    String description = tagCursor.getString(indexDescription);
+//                    if (description.isEmpty()){
+//                        description = "NaN";
+//                    }
+//                    String fileNumber = tagCursor.getString(indexFileNumber);
+//                    tag.append("\n" + fileNumber + "," + description);
+//                }
+//                else if (count > 1){
                 for (int i = 0; i < count; i += 1) {
                     String description = tagCursor.getString(indexDescription);
+                    if (description.isEmpty()){
+                        description = "NaN";
+                    }
                     String fileNumber = tagCursor.getString(indexFileNumber);
                     tag.append("\n" + fileNumber + "," + description);
                     tagCursor.moveToNext();
-                }}
-                System.out.println(tag.toString());
+                }
+//            }
+
                 try {
                     FileOutputStream out = openFileOutput(fileName, Context.MODE_PRIVATE);
                     out.write((tag.toString()).getBytes());
