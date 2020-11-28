@@ -25,6 +25,8 @@ public class SqlDataHelper extends SQLiteOpenHelper {
             "CREATE TABLE " + FeedTag.FeedEntryTag.TABLE_NAME + "(" +
                     FeedTag.FeedEntryTag._ID + " INTEGER PRIMARY KEY," +
                     FeedTag.FeedEntryTag.COLUMN_NAME_NUMBER  + " TEXT," +
+                    FeedTag.FeedEntryTag.COLUMN_NAME_RAT_NAMES  + " TEXT," +
+                    FeedTag.FeedEntryTag.COLUMN_NAME_EMOTION  + " TEXT," +
                     FeedTag.FeedEntryTag.COLUMN_NAME_DESCRIPTION + " TEXT)";
 
     private static final String SQL_DELETE_TAG_ENTRIES =
@@ -63,11 +65,13 @@ public class SqlDataHelper extends SQLiteOpenHelper {
         return result != -1;
 
     }
-    public boolean addDataToTagTable(String fileNumber, String description){
+    public boolean addDataToTagTable(String fileNumber, String description, String ratNames, String emotion){
         SQLiteDatabase dbInfo = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(FeedTag.FeedEntryTag.COLUMN_NAME_NUMBER, fileNumber);
         values.put(FeedTag.FeedEntryTag.COLUMN_NAME_DESCRIPTION, description);
+        values.put(FeedTag.FeedEntryTag.COLUMN_NAME_RAT_NAMES, ratNames);
+        values.put(FeedTag.FeedEntryTag.COLUMN_NAME_EMOTION, emotion);
         Log.d(TAG, "addDataToInfoTable: Adding data to table" + FeedTag.FeedEntryTag.TABLE_NAME);
         long result = dbInfo.insert(FeedTag.FeedEntryTag.TABLE_NAME, null, values);
         return result != -1;

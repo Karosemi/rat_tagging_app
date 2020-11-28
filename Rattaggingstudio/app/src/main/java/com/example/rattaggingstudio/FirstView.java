@@ -12,7 +12,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 
-
+import com.google.android.material.snackbar.Snackbar;
 import static com.example.rattaggingstudio.MainActivity.sqlDataHelper;
 
 public class FirstView extends Fragment {
@@ -38,6 +38,11 @@ public class FirstView extends Fragment {
                                     public void onClick(View view) {
                                         String titleString = (String) addTitle.getText().toString();
                                         String dateString = (String) editDate.getText().toString();
+                                        if (titleString.isEmpty()){
+                                            Snackbar.make(view, "Add any title!", Snackbar.LENGTH_LONG)
+                                                    .setAction("Action", null).show();
+                                            return;
+                                        }
                                         sqlDataHelper.addDataToInfoTable(titleString, dateString);
                                         view.clearFocus();
                                         NavHostFragment.findNavController(FirstView.this)

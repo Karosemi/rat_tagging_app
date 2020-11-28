@@ -8,6 +8,8 @@ public final class FeedTag {
         public static final String TABLE_NAME = "tag";
         public static final String COLUMN_NAME_NUMBER = "number";
         public static final String COLUMN_NAME_DESCRIPTION = "description";
+        public static final String COLUMN_NAME_RAT_NAMES = "rat_names";
+        public static final String COLUMN_NAME_EMOTION = "emotion";
 
     }
 }

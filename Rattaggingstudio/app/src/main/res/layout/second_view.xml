@@ -34,10 +34,10 @@
         android:id="@+id/editTextDescription"
         android:layout_width="264dp"
         android:layout_height="58dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         android:ems="10"
         android:gravity="start|top"
-        android:inputType="textMultiLine"
+        android:inputType="textShortMessage"
         android:textAlignment="textStart"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.272"
@@ -49,7 +49,7 @@
         android:layout_width="145dp"
         android:layout_height="36dp"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="136dp"
+        android:layout_marginTop="116dp"
         android:text="@string/description"
         android:textAlignment="center"
         android:textSize="24sp"
@@ -146,7 +146,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/checkBoxMiya"
-        app:layout_constraintTop_toBottomOf="@+id/checkBoxMiki" />
+        app:layout_constraintTop_toBottomOf="@+id/checkBoxMiki"
+        />
 
     <TextView
         android:id="@+id/Emotion"
@@ -182,9 +183,9 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.874"
+        app:layout_constraintHorizontal_bias="0.871"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ratName" />
 
@@ -199,6 +200,22 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.877"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBoxOther" />
+        app:layout_constraintTop_toBottomOf="@+id/checkBoxOther"
+        android:visibility="invisible"/>
+
+    <Button
+        android:id="@+id/clear"
+        android:layout_width="78dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="44dp"
+        android:text="clear"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/spinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/editTextDescription"
+        app:layout_constraintTop_toBottomOf="@+id/textRatName"
+        app:layout_constraintVertical_bias="0.245" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

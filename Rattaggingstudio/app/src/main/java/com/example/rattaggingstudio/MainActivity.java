@@ -44,32 +44,26 @@ public class MainActivity extends AppCompatActivity {
                 int indexTitle = infoCursor.getColumnIndex(FeedInfo.FeedEntryInfo.COLUMN_NAME_TITLE);
                 int indexDate = infoCursor.getColumnIndex(FeedInfo.FeedEntryInfo.COLUMN_NAME_DATE);
                 int indexDescription = tagCursor.getColumnIndex(FeedTag.FeedEntryTag.COLUMN_NAME_DESCRIPTION);
+                int indexEmotion = tagCursor.getColumnIndex(FeedTag.FeedEntryTag.COLUMN_NAME_EMOTION);
+                int indexRatNames = tagCursor.getColumnIndex(FeedTag.FeedEntryTag.COLUMN_NAME_RAT_NAMES);
                 int indexFileNumber = tagCursor.getColumnIndex(FeedTag.FeedEntryTag.COLUMN_NAME_NUMBER);
                 String fileName = "data.csv";
                 infoCursor.moveToFirst();
                 StringBuilder tag = new StringBuilder();
                 String title = infoCursor.getString(indexTitle);
                 String date = infoCursor.getString(indexDate);
-                tag.append("Title,Date\n" + title + "," + date);
-                tag.append("\nFileNumber,Description");
+                tag.append("Title,Date,,\n" + title + "," + date+",,");
+                tag.append("\nFileNumber,Description,RatNames,Emotion");
                 tagCursor.moveToFirst();
                 int count = tagCursor.getCount();
-//                if (count == 1) {
-//                    String description = tagCursor.getString(indexDescription);
-//                    if (description.isEmpty()){
-//                        description = "NaN";
-//                    }
-//                    String fileNumber = tagCursor.getString(indexFileNumber);
-//                    tag.append("\n" + fileNumber + "," + description);
-//                }
-//                else if (count > 1){
                 for (int i = 0; i < count; i += 1) {
                     String description = tagCursor.getString(indexDescription);
-                    if (description.isEmpty()){
-                        description = "NaN";
-                    }
+
+
                     String fileNumber = tagCursor.getString(indexFileNumber);
-                    tag.append("\n" + fileNumber + "," + description);
+                    String emotion = tagCursor.getString(indexEmotion);
+                    String ratNames = tagCursor.getString(indexRatNames);
+                    tag.append("\n" + fileNumber + "," + description+","+ratNames+","+emotion);
                     tagCursor.moveToNext();
                 }
 //            }

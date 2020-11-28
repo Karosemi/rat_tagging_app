@@ -10,7 +10,8 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
-
+import android.widget.TextView;
+import com.google.android.material.snackbar.Snackbar;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
@@ -40,30 +41,65 @@ public class SecondView extends Fragment {
         ratNamesCheckBoxes[3] = (CheckBox) view.findViewById(R.id.checkBoxMimi);
         ratNamesCheckBoxes[4] = (CheckBox) view.findViewById(R.id.checkBoxMiki);
         CheckBox checkBoxOther = (CheckBox) view.findViewById(R.id.checkBoxOther);
+        TextView ratName = (TextView) view.findViewById(R.id.ratName);
+        EditText textRatName = (EditText) view.findViewById(R.id.textRatName);
+        Spinner emotionSpinner = (Spinner) view.findViewById(R.id.spinner);
+        Button clear = (Button) view.findViewById(R.id.clear);
         Context context = getActivity();
-        Spinner spinner = (Spinner) view.findViewById(R.id.spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context,
                 R.array.emotion_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
-        spinner.setAdapter(adapter);
+        emotionSpinner.setAdapter(adapter);
         Button addTag = (Button) view.findViewById(R.id.tag);
         editTextNumber.setText("1");
+        clear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                editTextDescription.setText("");
+            }
+        });
+        checkBoxOther.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                if (checkBoxOther.isChecked()){
+                ratName.setVisibility(View.VISIBLE);
+                textRatName.setVisibility(View.VISIBLE);}
+                else {
+                    ratName.setVisibility(View.INVISIBLE);
+                    textRatName.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+
         addTag.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 String fileNumber = (String) editTextNumber.getText().toString();
                 String description = (String) editTextDescription.getText().toString();
+                String emotion = (String)  emotionSpinner.getSelectedItem().toString();
                 StringBuilder ratNames = new StringBuilder();
                 for (int i = 0; i < namesNumber; i++) {
                     String ratName = getRatName(ratNamesCheckBoxes[i]);
                     if (!ratName.isEmpty()) {
-                        ratNames.append(ratName + ";");
+                        ratNames.append(ratName + "_");
                     }
                 }
-                System.out.println(ratNames.toString());
-                sqlDataHelper.addDataToTagTable(fileNumber, description);
+                String ratNameString = textRatName.getText().toString();
+                ratNames.append(ratNameString);
+                String ratNamesString = ratNames.toString();
+                if (ratNamesString.isEmpty()){
+                    Snackbar.make(view, "Rat names are not choosen!", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                    return;
+                }
+                else if (description.isEmpty()){
+                    Snackbar.make(view, "Add description!", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                    return;
+                }
+                sqlDataHelper.addDataToTagTable(fileNumber, description, ratNamesString, emotion);
                 int i = Integer.parseInt(fileNumber);
                 i += 1;
                 String newFileNumber = String.valueOf(i);
