@@ -72,7 +72,7 @@ public class SqlDataHelper extends SQLiteOpenHelper {
         values.put(FeedTag.FeedEntryTag.COLUMN_NAME_DESCRIPTION, description);
         values.put(FeedTag.FeedEntryTag.COLUMN_NAME_RAT_NAMES, ratNames);
         values.put(FeedTag.FeedEntryTag.COLUMN_NAME_EMOTION, emotion);
-        Log.d(TAG, "addDataToInfoTable: Adding data to table" + FeedTag.FeedEntryTag.TABLE_NAME);
+        Log.d(TAG, "addDataToInfoTable: Adding data to table " + FeedTag.FeedEntryTag.TABLE_NAME);
         long result = dbInfo.insert(FeedTag.FeedEntryTag.TABLE_NAME, null, values);
         return result != -1;
 

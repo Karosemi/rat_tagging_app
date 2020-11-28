@@ -2,6 +2,7 @@ package com.example.rattaggingstudio;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +12,6 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import com.google.android.material.snackbar.Snackbar;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
@@ -49,23 +49,22 @@ public class SecondView extends Fragment {
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context,
                 R.array.emotion_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
         emotionSpinner.setAdapter(adapter);
         Button addTag = (Button) view.findViewById(R.id.tag);
         editTextNumber.setText("1");
         clear.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view){
+            public void onClick(View view) {
                 editTextDescription.setText("");
             }
         });
         checkBoxOther.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view){
-                if (checkBoxOther.isChecked()){
-                ratName.setVisibility(View.VISIBLE);
-                textRatName.setVisibility(View.VISIBLE);}
-                else {
+            public void onClick(View view) {
+                if (checkBoxOther.isChecked()) {
+                    ratName.setVisibility(View.VISIBLE);
+                    textRatName.setVisibility(View.VISIBLE);
+                } else {
                     ratName.setVisibility(View.INVISIBLE);
                     textRatName.setVisibility(View.INVISIBLE);
                 }
@@ -78,8 +77,9 @@ public class SecondView extends Fragment {
 
                 String fileNumber = (String) editTextNumber.getText().toString();
                 String description = (String) editTextDescription.getText().toString();
-                String emotion = (String)  emotionSpinner.getSelectedItem().toString();
+                String emotion = (String) emotionSpinner.getSelectedItem().toString();
                 StringBuilder ratNames = new StringBuilder();
+                Notification notification = new Notification();
                 for (int i = 0; i < namesNumber; i++) {
                     String ratName = getRatName(ratNamesCheckBoxes[i]);
                     if (!ratName.isEmpty()) {
@@ -89,30 +89,30 @@ public class SecondView extends Fragment {
                 String ratNameString = textRatName.getText().toString();
                 ratNames.append(ratNameString);
                 String ratNamesString = ratNames.toString();
-                if (ratNamesString.isEmpty()){
-                    Snackbar.make(view, "Rat names are not choosen!", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
+                if (ratNamesString.isEmpty()) {
+                    notification.showNotification(view, "Rat names are not choosen!");
+                    return;
+                } else if (description.isEmpty()) {
+                    notification.showNotification(view, "Add description!");
                     return;
                 }
-                else if (description.isEmpty()){
-                    Snackbar.make(view, "Add description!", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                    return;
-                }
+
                 sqlDataHelper.addDataToTagTable(fileNumber, description, ratNamesString, emotion);
                 int i = Integer.parseInt(fileNumber);
                 i += 1;
                 String newFileNumber = String.valueOf(i);
                 editTextNumber.setText(newFileNumber);
                 view.clearFocus();
+                notification.showNotification(view, "Tag is added!");
+
             }
         });
     }
 
+
     private static String getRatName(CheckBox checkbox) {
         if (checkbox.isChecked()) {
             String ratName = checkbox.getText().toString();
-            System.out.println("Rat is added.");
             return ratName;
 
         } else {

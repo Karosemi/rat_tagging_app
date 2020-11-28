@@ -17,15 +17,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
 public class MainActivity extends AppCompatActivity {
+
+
+
+
     public static SqlDataHelper sqlDataHelper;
-
-    private static String handleEmptyStrings(String text){
-        if (text.isEmpty()){
-            text = "NaN";
-        }
-        return text;
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,9 +30,9 @@ public class MainActivity extends AppCompatActivity {
         int oldVersion = 0;
         int newVersion = 1;
         sqlDataHelper.onUpgrade(sqlDataHelper.getWritableDatabase(), oldVersion, newVersion);
-        Button fab = findViewById(R.id.save);
+        Button save = findViewById(R.id.save);
 
-        fab.setOnClickListener(new View.OnClickListener() {
+        save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Cursor tagCursor = sqlDataHelper.getData(FeedTag.FeedEntryTag.TABLE_NAME);
@@ -56,17 +52,20 @@ public class MainActivity extends AppCompatActivity {
                 tag.append("\nFileNumber,Description,RatNames,Emotion");
                 tagCursor.moveToFirst();
                 int count = tagCursor.getCount();
+                if (count == 0){
+                    Notification notification = new Notification();
+                    notification.showNotification(view, "No data added.");
+                    return;
+                }
                 for (int i = 0; i < count; i += 1) {
                     String description = tagCursor.getString(indexDescription);
-
-
                     String fileNumber = tagCursor.getString(indexFileNumber);
                     String emotion = tagCursor.getString(indexEmotion);
                     String ratNames = tagCursor.getString(indexRatNames);
                     tag.append("\n" + fileNumber + "," + description+","+ratNames+","+emotion);
                     tagCursor.moveToNext();
                 }
-//            }
+
 
                 try {
                     FileOutputStream out = openFileOutput(fileName, Context.MODE_PRIVATE);
@@ -90,7 +89,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-//
     }
 
 

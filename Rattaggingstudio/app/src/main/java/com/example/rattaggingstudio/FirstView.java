@@ -39,8 +39,8 @@ public class FirstView extends Fragment {
                                         String titleString = (String) addTitle.getText().toString();
                                         String dateString = (String) editDate.getText().toString();
                                         if (titleString.isEmpty()){
-                                            Snackbar.make(view, "Add any title!", Snackbar.LENGTH_LONG)
-                                                    .setAction("Action", null).show();
+                                            Notification notification = new Notification();
+                                            notification.showNotification(view, "Add title!");
                                             return;
                                         }
                                         sqlDataHelper.addDataToInfoTable(titleString, dateString);
