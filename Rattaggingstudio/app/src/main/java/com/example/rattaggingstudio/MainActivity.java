@@ -20,8 +20,18 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
     public static SqlDataHelper sqlDataHelper;
+
+    public void showSaveButton(){
+        Button save = findViewById(R.id.save);
+        save.setVisibility(View.VISIBLE);
+    }
+
+    public void hideSaveButton(){
+        Button save = findViewById(R.id.save);
+        save.setVisibility(View.INVISIBLE);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

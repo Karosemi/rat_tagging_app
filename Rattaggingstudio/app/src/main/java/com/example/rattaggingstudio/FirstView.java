@@ -1,5 +1,6 @@
 package com.example.rattaggingstudio;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,10 +24,15 @@ public class FirstView extends Fragment {
             Bundle savedInstanceState
     ) {
         return inflater.inflate(R.layout.first_view, container, false);
+
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+
         super.onViewCreated(view, savedInstanceState);
+//        Activity mainActivity = new MainActivity();
+//        MainActivity.
+        ((MainActivity)getActivity()).hideSaveButton();
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
         LocalDateTime now = LocalDateTime.now();
         EditText addTitle = (EditText) view.findViewById(R.id.addTitle);

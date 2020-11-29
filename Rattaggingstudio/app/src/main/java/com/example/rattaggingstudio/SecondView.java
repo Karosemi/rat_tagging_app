@@ -30,6 +30,7 @@ public class SecondView extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        ((MainActivity)getActivity()).showSaveButton();
         CheckBox ratNamesCheckBoxes[];
         int namesNumber = 5;
         ratNamesCheckBoxes = new CheckBox[namesNumber];
@@ -108,6 +109,7 @@ public class SecondView extends Fragment {
             }
         });
     }
+
 
 
     private static String getRatName(CheckBox checkbox) {
