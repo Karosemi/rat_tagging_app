@@ -12,8 +12,6 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
-
-import com.google.android.material.snackbar.Snackbar;
 import static com.example.rattaggingstudio.MainActivity.sqlDataHelper;
 
 public class FirstView extends Fragment {
@@ -30,8 +28,6 @@ public class FirstView extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
 
         super.onViewCreated(view, savedInstanceState);
-//        Activity mainActivity = new MainActivity();
-//        MainActivity.
         ((MainActivity)getActivity()).hideSaveButton();
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
         LocalDateTime now = LocalDateTime.now();
