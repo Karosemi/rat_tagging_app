@@ -78,6 +78,7 @@ public class SecondView extends Fragment {
 
                 String fileNumber = (String) editTextNumber.getText().toString();
                 String description = (String) editTextDescription.getText().toString();
+                String correctedDescription = description.replace(',',';');
                 String emotion = (String) emotionSpinner.getSelectedItem().toString();
                 StringBuilder ratNames = new StringBuilder();
                 Notification notification = new Notification();
@@ -98,7 +99,7 @@ public class SecondView extends Fragment {
                     return;
                 }
 
-                sqlDataHelper.addDataToTagTable(fileNumber, description, ratNamesString, emotion);
+                sqlDataHelper.addDataToTagTable(fileNumber, correctedDescription, ratNamesString, emotion);
                 int i = Integer.parseInt(fileNumber);
                 i += 1;
                 String newFileNumber = String.valueOf(i);
